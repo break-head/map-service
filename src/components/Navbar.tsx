@@ -35,8 +35,8 @@ export default function Navbar() {
         </div>
       </div>
       {isOpen && (
-        <div className="hidden max-sm:block fixed w-full text-white h-screen top-[52px] bg-blue-800  ">
-          <div className="flex flex-col gap-4 px-[18px] py-6">
+        <div className="hidden max-sm:block w-full text-white h-screen top-[52px] bg-blue-800  ">
+          <div className="flex flex-col gap-4 px-[18px] py-6" onClick={() => setIsOpen((val) => !val)}>
             <Link href="/stores" className="cursor-pointer hover:text-gray-500">
               맛집목록
             </Link>
