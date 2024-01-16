@@ -2,18 +2,14 @@ import { Dispatch, SetStateAction, useCallback, useEffect } from 'react'
 
 interface MarkersProps {
   map: any
-  storeDatas?: any[]
+  stores?: any[]
   setCurrentStore: Dispatch<SetStateAction<any>>
 }
 
-export default function Markers({
-  map,
-  storeDatas,
-  setCurrentStore,
-}: MarkersProps) {
+export default function Markers({ map, stores, setCurrentStore }: MarkersProps) {
   const loadKakaoMarkers = useCallback(() => {
     if (map) {
-      storeDatas?.map((store) => {
+      stores?.map((store) => {
         var imageSrc = store?.bizcnd_code_nm
             ? `/images/markers/${store?.bizcnd_code_nm}.png`
             : '/images/markers/default.png', // 마커이미지의 주소입니다
@@ -23,17 +19,10 @@ export default function Markers({
           } // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
         // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-        var markerImage = new window.kakao.maps.MarkerImage(
-          imageSrc,
-          imageSize,
-          imageOption,
-        )
+        var markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
 
         // 마커가 표시될 위치입니다
-        var markerPosition = new window.kakao.maps.LatLng(
-          store?.y_dnts,
-          store?.x_cnts,
-        )
+        var markerPosition = new window.kakao.maps.LatLng(store?.y_dnts, store?.x_cnts)
 
         // 마커를 생성합니다
         var marker = new window.kakao.maps.Marker({
@@ -71,7 +60,7 @@ export default function Markers({
         })
       })
     }
-  }, [map, setCurrentStore, storeDatas])
+  }, [map, setCurrentStore, stores])
 
   useEffect(() => {
     loadKakaoMarkers()
